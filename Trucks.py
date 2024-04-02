@@ -11,5 +11,5 @@ class Truck:
         self.time = departure_time
 
     def __str__(self):
-        return "%s, %s, %s, %s, %s, %s, %s" % (self.capacity, self.speed, self.load, self.packages, self.miles,
+        return "Truck Capacity: %s, Speed: %s, Load: %s, Packages: %s, Distance Traveled: %s, Current Location: %s, Departure Time: %s" % (self.capacity, self.speed, self.load, self.packages, self.miles,
                                                self.address, self.departure_time)

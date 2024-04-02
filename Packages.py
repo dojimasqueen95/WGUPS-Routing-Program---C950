@@ -12,7 +12,7 @@ class Package:
         self.delivered_at = None
 
     def __str__(self):
-        return "%s, %s, %s, %s, %s, %s, %s, %s, %s" % (self.id, self.address, self.city, self.state, self.zipcode,
+        return "Package ID: %s, Address: %s, City: %s, State: %s, Zipcode: %s, Delivery Deadline: %s, Weight: %s, Delivery Time: %s, Status: %s" % (self.id, self.address, self.city, self.state, self.zipcode,
                                                        self.delivery_deadline, self.weight, self.delivered_at, 
                                                        self.status)
     
