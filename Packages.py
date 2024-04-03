@@ -17,7 +17,7 @@ class Package:
                                                        self.status)
     
     # Method to update status of package
-    def status_update(self, covert_timedelta):
+    def status_update(self, convert_timedelta):
         if self.delivered_at < convert_timedelta:
             self.status = "Delivered"
         elif self.departed_at > convert_timedelta:

@@ -37,8 +37,8 @@ class HashTable:
     # Remove method
     def remove(self, key):
         bucket = hash(key) % len(self.list)
-        bucket_list = self.list[slot]
+        bucket_list = self.list[bucket]
 
         # If key found in hash table, removes item
         if key in bucket_list:
-            destination.remove(key)
+            bucket_list.remove(key)
