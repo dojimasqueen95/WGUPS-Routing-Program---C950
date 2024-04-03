@@ -18,9 +18,13 @@ class Package:
     
     # Method to update status of package
     def status_update(self, convert_timedelta):
+        default_status = "At hub"
         if self.delivered_at < convert_timedelta:
-            self.status = "Delivered"
+            default_status = "Delivered"
         elif self.departed_at > convert_timedelta:
-            self.status = "En route"
+            default_status = "En route"
         else:
-            self.status = "At hub"
+            default_status = "At hub"
+        return "Package ID: %s, Address: %s, City: %s, State: %s, Zipcode: %s, Delivery Deadline: %s, Weight: %s, Delivery Time: %s, Status: %s" % (self.id, self.address, self.city, self.state, self.zipcode,
+                                                       self.delivery_deadline, self.weight, self.delivered_at, 
+                                                       default_status)

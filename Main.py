@@ -64,14 +64,6 @@ def get_address(address):
 truck1 = Truck(16, 18, None, [14, 15, 16, 34, 20, 21, 19, 13, 39, 24, 31, 12, 29, 30, 37], 0.0, "4001 South 700 East", datetime.timedelta(hours=8, minutes=0))
 truck2 = Truck(16, 18, None, [1, 33, 7, 10, 5, 38, 3, 36, 18, 2, 8, 40, 6], 0.0, "4001 South 700 East", datetime.timedelta(hours=9, minutes=5))
 
-# Updates address for package 9
-def update_info(hash_table, truck):
-    load_packages(hash_table)
-    check = hash_table.search(9)
-    if check == truck:
-        hash_table.remove(9)
-        hash_table.insert(9, "9,410 S. State St.,Salt Lake City,UT,84111,,,,,,,,")
-
 # Loads final packages into the last truck
 truck3 = Truck(16, 18, None, [32, 23, 11, 22, 27, 35, 17, 4, 28, 9, 25, 26], 0.0, "4001 South 700 East", datetime.timedelta(hours=10, minutes=20))
 
@@ -121,7 +113,7 @@ class Main:
     print("Welcome to the WGUPS Package and Delivery Information")
     print("Total mileage: ")
     print(truck1.miles + truck2.miles + truck3.miles)
-    text = input("To begin, please type 'go'.")
+    text = input("To begin, please type 'go': ")
     if text == "go":
         time = input("Please enter a time for package status in the following format: HH:MM:SS ")
         (h, m, s) = time.split(":")
@@ -140,13 +132,11 @@ class Main:
         elif option == '2':
             for pID in range(1, 41):
                 pkg = hash_table.search(pID)
-                pkg.status_update(convert_timedelta)
-                print(pkg)
+                print(pkg.status_update(convert_timedelta))
         elif option == '3':
             exit()
         else:
             print("Invalid option. Terminating program.")
             exit()
     else:
-        print("Invalid option. Terminating program.")
-        exit()
+        print("Invalid option. Please try again.")
