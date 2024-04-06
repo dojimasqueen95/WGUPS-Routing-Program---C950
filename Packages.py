@@ -22,9 +22,9 @@ class Package:
         if self.delivered_at < convert_timedelta:
             default_status = "Delivered"
         elif self.departed_at > convert_timedelta:
-            default_status = "En route"
-        else:
             default_status = "At hub"
+        else:
+            default_status = "En route"
         return "Package ID: %s, Address: %s, City: %s, State: %s, Zipcode: %s, Delivery Deadline: %s, Weight: %s, Delivery Time: %s, Status: %s" % (self.id, self.address, self.city, self.state, self.zipcode,
                                                        self.delivery_deadline, self.weight, self.delivered_at, 
                                                        default_status)

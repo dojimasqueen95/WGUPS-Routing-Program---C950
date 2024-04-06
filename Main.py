@@ -3,7 +3,7 @@
 # Title: C950 WGUPS Routing Program
 import csv
 import datetime
-from trucks import Truck
+from Trucks import Truck
 from CreateHashTable import HashTable
 from Packages import Package
 
@@ -37,10 +37,10 @@ def load_packages(filename, hash_table):
             package_zipcode = package[4]
             package_deadline = package[5]
             package_weight = package[6]
-            package_status = "At hub"
+            package_status = package[6]
 
             # Package object
-            p = Package(package_id, package_address, package_city, package_status,
+            p = Package(package_id, package_address, package_city, package_state,
                         package_zipcode, package_deadline, package_weight, package_status)
             
             # Inserts package data into the hash table
@@ -103,40 +103,45 @@ def delivering_truck(truck):
 # Places trucks in to the loading process
 delivering_truck(truck1)
 delivering_truck(truck2)
-# Ensuring third truck does NOT leave until either truck1 or truck2 have finished and returned for the day
-truck3_departure = min(truck1.time, truck2.time)
 delivering_truck(truck3)
 
 # User Interface
 # End user will be met with a list of options
 class Main:
-    print("Welcome to the WGUPS Package and Delivery Information")
+    print("Welcome to the WGUPS Package and Delivery Information System")
     print("Total mileage: ")
     print(truck1.miles + truck2.miles + truck3.miles)
-    text = input("To begin, please type 'go': ")
-    if text == "go":
-        time = input("Please enter a time for package status in the following format: HH:MM:SS ")
-        (h, m, s) = time.split(":")
-        convert_timedelta = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    # Begins loop until user exits the program
+    isExit = True
+    while (isExit):
         print("""
               Please select an option from the list below.
               1. Get status of a single package
               2. Get status of all packages with a time
               3. Exit""")
         option = input()
+
+        time = input("Please enter a time for package status in the following format: HH:MM:SS ")
+        (h, m, s) = time.split(":")
+        convert_timedelta = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
+    
+    # # Updates the address for Package 9 if the time entered is after 10:20 AM
+        if convert_timedelta >= truck3.departure_time:
+            p = hash_table.search(9)
+            p.address = "410 S State St"
+            p.zipcode = '84111'
+            hash_table.insert(p.id, p)
+
         if option == '1':
             pID = input("Please enter the package ID: ")
             package = hash_table.search(int(pID))
             package.status_update(convert_timedelta)
-            print(package)
+            print(package.status_update(convert_timedelta))
         elif option == '2':
             for pID in range(1, 41):
                 pkg = hash_table.search(pID)
                 print(pkg.status_update(convert_timedelta))
         elif option == '3':
-            exit()
+            isExit = False
         else:
-            print("Invalid option. Terminating program.")
-            exit()
-    else:
-        print("Invalid option. Please try again.")
+            print("Invalid option. Please try again.")
